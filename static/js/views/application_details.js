@@ -88,7 +88,7 @@ Containership.Views.ApplicationDetails = Backbone.View.extend({
                                         '<td>', host, '</td>',
                                         '<td>', start_time, '</td>',
                                         '<td>', container.host_port, '</td>',
-                                        '<td>', container.port || container.host_port, '</td>'
+                                        '<td>', container.container_port || container.host_port, '</td>'
                                 ]
 
                                 if(container.status == "loaded")
