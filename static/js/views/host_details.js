@@ -124,7 +124,7 @@ Containership.Views.HostDetails = Backbone.View.extend({
                                             '<td>', '<a href = "/#/applications/', container.application, '">', container.application, '</a>', '</td>',
                                             '<td>', start_time, '</td>',
                                             '<td>', container.host_port, '</td>',
-                                            '<td>', container.port || container.host_port, '</td>'
+                                            '<td>', container.container_port || container.host_port, '</td>'
                                     ]
 
                                     if(container.status == "loaded")
