@@ -85,27 +85,32 @@ window.Containership.Router = Backbone.Router.extend({
     },
 
     hosts: function(){
-        this.load_hosts(function(){
-            if(_.isUndefined(Containership.views.hosts_view))
-                Containership.views.hosts_view = new Containership.Views.HostsView();
+        var self = this;
+        this.load_applications(function(){
+            self.load_hosts(function(){
+                if(_.isUndefined(Containership.views.hosts_view))
+                    Containership.views.hosts_view = new Containership.Views.HostsView();
 
-            Containership.views.hosts_view.render();
+                Containership.views.hosts_view.render();
 
-            _.each(Containership.collections.hosts.models, function(model){
-                model.get("views").list.render();
+                _.each(Containership.collections.hosts.models, function(model){
+                    model.get("views").list.render();
+                });
             });
         });
     },
 
     host: function(host){
-        this.load_hosts(function(){
-            if(_.isUndefined(Containership.views.host_view))
-                Containership.views.host_view = new Containership.Views.HostView();
+        var self = this;
+        this.load_applications(function(){
+            self.load_hosts(function(){
+                if(_.isUndefined(Containership.views.host_view))
+                    Containership.views.host_view = new Containership.Views.HostView();
 
-            Containership.views.host_view.render();
-            Containership.collections.hosts.get(host).get("views").details.render();
+                Containership.views.host_view.render();
+                Containership.collections.hosts.get(host).get("views").details.render();
+            });
         });
     }
-
 
 });

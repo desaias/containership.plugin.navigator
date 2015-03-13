@@ -14,7 +14,7 @@ Containership.Views.HostDetails = Backbone.View.extend({
         var content = [
             '<div class = "two column row">',
                 '<div class = "eight wide column">',
-                    '<h1>', this.model.get("host_name"), '</h1>',
+                    '<h1>', this.model.get("id"), '</h1>',
                 '</div>',
                 '<div class = "eight wide column right aligned">',
                     '<div class="ui buttons">',
@@ -30,24 +30,22 @@ Containership.Views.HostDetails = Backbone.View.extend({
                     '<table class = "ui table">',
                         '<thead>',
                             '<tr>',
-                                '<th>ID</th>',
+                                '<th>Host Name</th>',
                                 '<th>Public IP</th>',
                                 '<th>Private IP</th>',
                                 '<th>Port</th>',
                                 '<th>Mode</th>',
                                 '<th>Controlling Leader</th>',
-                                '<th>Tags</th>',
                             '</tr>',
                         '</thead>',
                         '<tbody>',
                             '<tr>',
-                                '<td>', this.model.get("id"), '</td>',
+                                '<td>', this.model.get("host_name"), '</td>',
                                 '<td>', '<a href = "ssh://', this.model.get("address").public, '">', this.model.get("address").public, '</a>', '</td>',
                                 '<td>', '<a href = "ssh://', this.model.get("address").private, '">', this.model.get("address").private, '</a>', '</td>',
                                 '<td>', this.model.get("port"), '</td>',
                                 '<td>', this.model.get("mode"), '</td>',
                                 '<td>', this.model.get("praetor").leader, '</td>',
-                                '<td>', this.model.get("tags"), '</td>',
                             '</tr>',
                         '</tbody>',
                     '</table>',
@@ -56,6 +54,25 @@ Containership.Views.HostDetails = Backbone.View.extend({
         ]
 
         if(this.model.get("mode") == "follower"){
+            content.push([
+                '<div class = "one column row"></div>',
+                '<div class = "one column row">',
+                    '<div class = "sixteen wide column">',
+                        '<h4 class="ui horizontal header divider">Tags</h4>',
+                        '<div>',
+                            _.map(window.flatten(this.model.get("tags")), function(value, tag){
+                                return [
+                                    '<a class="ui teal image label">',
+                                        tag,
+                                        '<span class="detail">', value, '</span>',
+                                    '</a>'
+                                ].join("");
+                            }).join(""),
+                        '</div>',
+                    '</div>',
+                '</div>'
+            ].join(""));
+
             var overhead = 32;
             var used_cpus = 0;
             var used_memory = 0;
@@ -109,34 +126,10 @@ Containership.Views.HostDetails = Backbone.View.extend({
                                     '<th>Host Port</th>',
                                     '<th>Container Port</th>',
                                     '<th>Status</th>',
+                                    '<th></th>',
                                 '</tr>',
                             '</thead>',
-                            '<tbody>',
-                                _.map(this.model.get("containers"), function(container){
-                                    if(_.isUndefined(container.start_time) || _.isNull(container.start_time))
-                                        var start_time = "-";
-                                    else
-                                        var start_time = new Date(container.start_time);
-
-                                    var content = [
-                                        '<tr>',
-                                            '<td>', container.id, '</td>',
-                                            '<td>', '<a href = "/#/applications/', container.application, '">', container.application, '</a>', '</td>',
-                                            '<td>', start_time, '</td>',
-                                            '<td>', container.host_port, '</td>',
-                                            '<td>', container.container_port || container.host_port, '</td>'
-                                    ]
-
-                                    if(container.status == "loaded")
-                                        content.push('<td class = "positive">', container.status, '</td>');
-                                    else if(container.status == "loading")
-                                        content.push('<td class = "warning">', container.status, '</td>');
-                                    else
-                                        content.push('<td class = "negative">', container.status, '</td>');
-
-                                    content.push('</tr>');
-                                    return content.join("");
-                                }).join(""),
+                            '<tbody class = "containers">',
                             '</tbody>',
                         '</table>',
                     '</div>',
@@ -171,6 +164,11 @@ Containership.Views.HostDetails = Backbone.View.extend({
 
         $(this.el).html(content.join(""));
         $("#main").html(this.el);
+        var applications = _.indexBy(Containership.collections.applications.models, "id");
+        _.each(this.model.get("containers"), function(container){
+            var container = applications[container.application].get("container_models")[container.id];
+            container.get("views").list.host_render($(".containers"));
+        });
     },
 
     delete_host: function(){
@@ -187,4 +185,3 @@ Containership.Views.HostDetails = Backbone.View.extend({
     }
 
 });
-

@@ -3,6 +3,36 @@ h1{
     bottom: 25px;
 }
 
+.ui .nav.menu{
+    position: relative;
+    bottom: 5px;
+}
+
+.ui .nav.menu a.item{
+    font-size: 14px;
+    line-height: 14px;
+    padding: 20px 15px 15px 15px;
+}
+
+.ui .nav.menu a.logo-container{
+    padding: 12px 15px 7px 15px;
+}
+
+.ui .nav.menu a.logo-container img{
+    height: 30px;
+}
+
+.nav.item{
+    line-height: 50px;
+    float: left;
+    padding: 0px;
+}
+
+.application-button{
+    bottom: 10px;
+    position: relative;
+}
+
 .header{
     padding-top: 20px;
 }
@@ -18,4 +48,9 @@ a{
 a:hover{
     color: #01D0B8;
     opacity: 0.5;
+}
+
+.add-tags-wrapper{
+    position: relative;
+    bottom: 10px;
 }
