@@ -14,4 +14,7 @@ exports.register = function(server, options){
 
     // web ui
     server.get("/", handlers.ui.show);
+
+    // autocomplete
+    server.get("/autocomplete", handlers.autocomplete.get);
 }

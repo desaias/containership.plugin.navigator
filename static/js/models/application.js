@@ -4,14 +4,23 @@ window.Containership.Models.Application = Backbone.Model.extend({
         this.set("views", {
             list: new Containership.Views.ApplicationList({model: this}),
             details: new Containership.Views.ApplicationDetails({model: this}),
-            modal: new Containership.Views.NewApplicationModal({model: this})
+            modal: {
+                create: new Containership.Views.CreateApplicationModal({model: this}),
+                scale: new Containership.Views.ScaleContainerModal({model: this}),
+                update: new Containership.Views.UpdateApplicationModal({model: this}),
+                delete: new Containership.Views.DeleteApplicationModal({model: this})
+            }
         });
 
-        this.on("remove", function(){
-            this.get("views").list.remove();
-            this.get("views").details.remove();
-            this.get("views").modal.remove();
-        });
+        this.set("container_models", {});
+
+        _.each(this.get("containers"), function(container){
+            _.extend(container, {
+                application: this.get("id")
+            });
+
+            this.attributes.container_models[container.id] = new Containership.Models.Container(container);
+        }, this);
     },
 
     toJSON: function(){
@@ -22,8 +31,12 @@ window.Containership.Models.Application = Backbone.Model.extend({
             cpus: this.get("cpus"),
             memory: this.get("memory"),
             container_port: this.get("container_port"),
-            network_mode: this.get("network_mode")
+            network_mode: this.get("network_mode"),
+            respawn: this.get("respawn"),
+            tags: this.get("tags")
         }
+
+        console.log(json);
 
         return json;
     }

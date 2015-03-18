@@ -23,6 +23,7 @@ Containership.Views.ApplicationsView = Backbone.View.extend({
                         '<th>CPUs</th>',
                         '<th>Memory</th>',
                         '<th>Containers</th>',
+                        '<th></th>',
                     '</tr>',
                 '</thead>',
                 '<tbody>',
@@ -39,17 +40,7 @@ Containership.Views.ApplicationsView = Backbone.View.extend({
         new_application.url = function(){
             return ["http://", window.location.hostname, ":8080/v1/applications/", this.get("name")].join("");
         }
-        new_application.get("views").modal.render();
-        var self = this;
-        $("#applicationCreate").modal({
-            onApprove: function(){
-                new_application.save({
-                    success: function(){
-                        window.location = ["", "#", "applications", new_application.get("id")].join("/");
-                    }
-                });
-            }
-        }).modal("show");
+        new_application.get("views").modal.create.render();
     }
 
 });
