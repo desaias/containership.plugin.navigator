@@ -149,6 +149,10 @@ Containership.Views.CreateApplicationModal = Backbone.View.extend({
         });
     },
 
+    set_id: function(element){
+        this.model.set({name: $(element.target).val()});
+    },
+
     set_image: function(element){
         this.model.set({image: $("#appImage").val()});
     },
