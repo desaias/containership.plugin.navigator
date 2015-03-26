@@ -1,6 +1,6 @@
 {
   "name": "containership.plugin.navigator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A web-ui for managing your ContainerShip cluster",
   "main": "application.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "express": "^4.10.6",
     "hbs": "^2.7.0",
     "lodash": "^2.4.1",
-    "request": "^2.53.0"
+    "request": "^2.54.0"
   },
   "keywords": [
     "navigator",
