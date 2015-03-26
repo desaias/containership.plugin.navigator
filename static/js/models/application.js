@@ -36,8 +36,6 @@ window.Containership.Models.Application = Backbone.Model.extend({
             tags: this.get("tags")
         }
 
-        console.log(json);
-
         return json;
     }
 
