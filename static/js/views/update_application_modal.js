@@ -7,14 +7,14 @@ Containership.Views.UpdateApplicationModal = Backbone.View.extend({
     className: "ui small modal",
 
     events: {
-        "keyup #appId": "setId",
-        "keyup #appImage": "setImage",
-        "keyup #appCommand": "setCommand",
-        "keyup #appCPUs": "setCPUs",
-        "keyup #appMemory": "setMemory",
-        "keyup #appContainerPort": "setContainerPort",
-        "change #network_mode_inputs input[type=radio]": "setNetworkMode",
-        "change #respawn_inputs": "setRespawn"
+        "keyup #appId": "set_id",
+        "keyup #appImage": "set_image",
+        "keyup #appCommand": "set_command",
+        "keyup #appCPUs": "set_cpus",
+        "keyup #appMemory": "set_memory",
+        "keyup #appContainerPort": "set_container_port",
+        "change #network_mode_inputs input[type=radio]": "set_network_mode",
+        "change #respawn_inputs": "set_respawn"
     },
 
     initialize: function(){},
