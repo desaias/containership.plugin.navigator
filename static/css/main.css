@@ -54,3 +54,8 @@ a:hover{
     position: relative;
     bottom: 10px;
 }
+
+.modal .content .ui{
+    max-height: 500px;
+    overflow-x: scroll;
+}
