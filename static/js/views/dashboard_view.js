@@ -108,6 +108,22 @@ Containership.Views.DashboardView = Backbone.View.extend({
                         '</tbody>',
                     '</table>',
                 '</div>',
+            '</div>',
+            '<div class = "one column row"></div>',
+            '<div class = "one column row">',
+                '<div class = "sixteen wide column">',
+                    '<h4 class="ui horizontal header divider">Plugins</h4>',
+                    '<table id = "plugins" class = "ui table">',
+                        '<thead>',
+                            '<tr>',
+                                '<th>Name</th>',
+                                '<th>Version</th>',
+                            '</tr>',
+                        '</thead>',
+                        '<tbody>',
+                        '</tbody>',
+                    '</table>',
+                '</div>',
             '</div>'
         ]
 

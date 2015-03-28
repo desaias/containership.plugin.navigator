@@ -28,10 +28,28 @@ window.Containership.Router = Backbone.Router.extend({
                 Containership.models.cluster.fetch({
                     success: function(){
                         Containership.models.cluster.get("views").dashboard.render();
+                        self.load_plugins(function(){
+                            _.each(Containership.collections.plugins.models, function(model){
+                                model.get("views").list.render();
+                            });
+                        });
                     },
                     error: function(){}
                 });
             });
+        });
+    },
+
+    load_plugins: function(fn){
+        Containership.collections.plugins = new Containership.Collections.Plugins();
+        Containership.collections.plugins.fetch({
+            success: function(){
+                return fn();
+            },
+
+            error: function(){
+                return fn();
+            }
         });
     },
 
