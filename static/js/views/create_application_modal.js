@@ -12,6 +12,8 @@ Containership.Views.CreateApplicationModal = Backbone.View.extend({
         "keyup #appCommand": "set_command",
         "keyup #appCPUs": "set_cpus",
         "keyup #appMemory": "set_memory",
+        "keyup #appHostVolume": "set_volumes",
+        "keyup #appContainerVolume": "set_volumes",
         "keyup #appContainerPort": "set_container_port",
         "change #network_mode_inputs input[type=radio]": "set_network_mode",
         "change #respawn_inputs input[type=checkbox]": "set_respawn",
@@ -105,6 +107,22 @@ Containership.Views.CreateApplicationModal = Backbone.View.extend({
                     '</div>',
                     '<div class="two column row">',
                         '<div class = "four wide column">',
+                            '<label>Host Volume</label>',
+                        '</div>',
+                        '<div class = "twelve wide column fluid">',
+                            '<input id="appHostVolume" type="text" placeholder="Host Volume">',
+                        '</div>',
+                    '</div>',
+                    '<div class="two column row">',
+                        '<div class = "four wide column">',
+                            '<label>Container Volume</label>',
+                        '</div>',
+                        '<div class = "twelve wide column fluid">',
+                            '<input id="appContainerVolume" type="text" placeholder="Container Volume">',
+                        '</div>',
+                    '</div>',
+                    '<div class="two column row">',
+                        '<div class = "four wide column">',
                             '<label>Respawn Containers</label>',
                         '</div>',
                         '<div class = "twelve wide column fluid">',
@@ -155,6 +173,15 @@ Containership.Views.CreateApplicationModal = Backbone.View.extend({
 
     set_image: function(element){
         this.model.set({image: $("#appImage").val()});
+    },
+
+    set_volumes: function(element){
+        this.model.set({volumes: [
+            {
+                host: $("#appHostVolume").val(),
+                container: $("#appContainerVolume").val()
+            }
+        ]});
     },
 
     set_command: function(element){
