@@ -30,6 +30,7 @@ window.Containership.Models.Application = Backbone.Model.extend({
             command: this.get("command"),
             cpus: this.get("cpus"),
             memory: this.get("memory"),
+            volumes: this.get("volumes"),
             container_port: this.get("container_port"),
             network_mode: this.get("network_mode"),
             respawn: this.get("respawn"),
