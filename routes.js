@@ -17,4 +17,7 @@ exports.register = function(server, options){
 
     // autocomplete
     server.get("/autocomplete", handlers.autocomplete.get);
+
+    // get plugins
+    server.get("/plugins", handlers.plugins.get);
 }
