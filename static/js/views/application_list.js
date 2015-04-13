@@ -14,8 +14,8 @@ Containership.Views.ApplicationList = Backbone.View.extend({
 
     render: function(){
         var containers = this.model.get("containers");
-        var unloaded_containers = _.filter(containers, function(container){
-            return container.status == "unloaded"
+        var loaded_containers = _.filter(containers, function(container){
+            return container.status == "loaded"
         });
 
         var content = [
@@ -25,7 +25,7 @@ Containership.Views.ApplicationList = Backbone.View.extend({
             '<td class = "application_details">', this.model.get("command"), '</td>',
             '<td class = "application_details">', this.model.get("cpus"), '</td>',
             '<td class = "application_details">', this.model.get("memory"), 'MB', '</td>',
-            '<td class = "application_details">', (containers.length - unloaded_containers.length), '/', containers.length, '</td>',
+            '<td class = "application_details">', loaded_containers.length, '/', containers.length, '</td>',
             '<td>',
                 '<div class="ui dropdown">',
                     '<i class="setting icon"></i>',
