@@ -15,7 +15,7 @@ Containership.Views.ApplicationList = Backbone.View.extend({
     render: function(){
         var containers = this.model.get("containers");
         var loaded_containers = _.filter(containers, function(container){
-            return container.status == "loaded"
+            return container.status == "loaded";
         });
 
         var content = [
