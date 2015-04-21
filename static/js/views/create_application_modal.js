@@ -17,7 +17,9 @@ Containership.Views.CreateApplicationModal = Backbone.View.extend({
         "keyup #appContainerPort": "set_container_port",
         "change #network_mode_inputs input[type=radio]": "set_network_mode",
         "change #respawn_inputs input[type=checkbox]": "set_respawn",
-        "click #autocompleteResults": "set_image"
+        "click #autocompleteResults": "set_image",
+        "click .plusbutton": "add_envvar",
+        "click .minusbutton": "remove_envvar"
     },
 
     initialize: function(){},
@@ -52,7 +54,7 @@ Containership.Views.CreateApplicationModal = Backbone.View.extend({
                             '<label>Image</label>',
                         '</div>',
                         '<div class = "twelve wide column fluid">',
-                            '<div class="ui category search">',
+                            '<div class="ui category search image-wrapper">',
                                 '<input id = "appImage" class="prompt" type="text" placeholder="Image" autocomplete="off">',
                                 '<div id = "autocompleteResults" class="results"></div>',
                             '</div>',
@@ -121,6 +123,20 @@ Containership.Views.CreateApplicationModal = Backbone.View.extend({
                             '<input id="appContainerVolume" type="text" placeholder="Container Volume">',
                         '</div>',
                     '</div>',
+                    '<div class="three column row envvars">',
+                        '<div class = "four wide column">',
+                            '<label>Environment Variables</label>',
+                        '</div>',
+                        '<div class = "ten wide column fluid">',
+                            '<div class="ui category search envvar-wrapper">',
+                                '<input id="newEnvVar" class="prompt envvar" type="text" placeholder="KEY=VALUE" autocomplete="off">',
+                                '<div id = "envvarAutocompleteResults" class="results"></div>',
+                            '</div>',
+                        '</div>',
+                        '<div class = "two wide column fluid">',
+                            '<i class="plusbutton plus square outline icon big"></i>',
+                        '</div>',
+                    '</div>',
                     '<div class="two column row">',
                         '<div class = "four wide column">',
                             '<label>Respawn Containers</label>',
@@ -158,12 +174,31 @@ Containership.Views.CreateApplicationModal = Backbone.View.extend({
         }).modal("show");
         $("#main").append(this.el);
         $(".checkbox").checkbox();
-        $('.ui.search').search({
+        $(".image-wrapper").search({
             maxResults: 10,
             apiSettings: {
                 action: "search",
                 url: "/autocomplete?q={query}&size=10"
             }
+        });
+
+        var content = [];
+
+        _.each(Containership.collections.applications.models, function(model){
+            content.push({
+                title: ["$CS", "ADDRESS", model.id.toUpperCase()].join("_"),
+                description: ["Returns url to route to", model.id].join(" ")
+            });
+            content.push({
+                title: ["$CS", "DISCOVERY", "PORT", model.id.toUpperCase()].join("_"),
+                description: ["Returns discovery port for", model.id].join(" ")
+            });
+        });
+
+        $(".envvar-wrapper").search({
+            source: content,
+            cache: false,
+            searchFields: [ "description" ]
         });
     },
 
@@ -207,6 +242,38 @@ Containership.Views.CreateApplicationModal = Backbone.View.extend({
 
     set_respawn: function(element){
         this.model.set({respawn: !$(element.target).parent().hasClass("checked")});
+    },
+
+    add_envvar: function(){
+        var content = [
+            '<div class = "envvar-wrapper three column row">',
+                '<div class = "four wide column fluid">',
+                '</div>',
+                '<div class = "ten wide column fluid">',
+                    '<input class="envvar" disabled="disabled" type="text" placeholder="KEY=VALUE" value="', $("#newEnvVar").val(), '">',
+                '</div>',
+                '<div class = "two wide column fluid">',
+                    '<i class="minusbutton minus square outline icon big"></i>',
+                '</div>',
+            '</div>'
+        ]
+        if($("#newEnvVar").val().indexOf("=") != -1){
+            $(".envvars").after(content.join(""));
+
+            var env_vars = this.model.get("env_vars") || {};
+            var parts = $("#newEnvVar").val().split("=");
+            env_vars[parts[0]] = parts[1];
+            $("#newEnvVar").val("");
+            this.model.set({env_vars: env_vars});
+        }
+    },
+
+    remove_envvar: function(element){
+        var env_vars = this.model.get("env_vars");
+        var parts = $(element.target).parent().prev().find("input").val().split("=");
+        delete env_vars[parts[0]];
+        this.model.set({env_vars: env_vars});
+        $(element.target).parents(".envvar-wrapper").remove();
     }
 
 });

@@ -55,7 +55,11 @@ a:hover{
     bottom: 10px;
 }
 
-.modal .content .ui{
+#applicationCreate{
     max-height: 500px;
     overflow-x: scroll;
+}
+
+.plusbutton, .minusbutton{
+    padding-top: 7px;
 }
