@@ -21,6 +21,10 @@ Containership.Views.ApplicationDetails = Backbone.View.extend({
     render: function(){
         var self = this;
 
+        var loaded_containers = _.filter(this.model.get("containers"), function(container){
+            return container.status == "loaded";
+        });
+
         var content = [
             '<div class = "two column row">',
                 '<div class = "eight wide column">',
@@ -55,6 +59,7 @@ Containership.Views.ApplicationDetails = Backbone.View.extend({
                                 '<th>Network Mode</th>',
                                 '<th>Container Port</th>',
                                 '<th>Discovery Port</th>',
+                                '<th>Containers</th>',
                             '</tr>',
                         '</thead>',
                         '<tbody>',
@@ -67,6 +72,7 @@ Containership.Views.ApplicationDetails = Backbone.View.extend({
                                 '<td>', this.model.get("network_mode"), '</td>',
                                 '<td>', this.model.get("container_port"), '</td>',
                                 '<td>', this.model.get("discovery_port"), '</td>',
+                                '<td>', loaded_containers.length, '/', this.model.get("containers").length, '</td>',
                             '</tr>',
                         '</tbody>',
                     '</table>',
@@ -123,7 +129,8 @@ Containership.Views.ApplicationDetails = Backbone.View.extend({
         $("#main").html(this.el);
 
         _.each(this.model.get("container_models"), function(container){
-            container.get("views").list.application_render($(".containers"));
+            if(container.get("status") != "unloaded")
+                container.get("views").list.application_render($(".containers"));
         });
 
         this.tags = {};
