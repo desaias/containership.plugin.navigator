@@ -34,7 +34,8 @@ window.Containership.Models.Application = Backbone.Model.extend({
             container_port: this.get("container_port"),
             network_mode: this.get("network_mode"),
             respawn: this.get("respawn"),
-            tags: this.get("tags")
+            tags: this.get("tags"),
+            env_vars: this.get("env_vars")
         }
 
         return json;
