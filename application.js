@@ -4,9 +4,10 @@ var server;
 
 module.exports = new ContainershipPlugin({
     type: "core",
+    name: "navigator",
 
     initialize: function(core){
-        server = new Server(core);
+        server = new Server(core, this.config);
         server.listen();
     },
 

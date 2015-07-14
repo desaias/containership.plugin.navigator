@@ -10,7 +10,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "body-parser": "^1.10.0",
-    "containership.plugin": "^0.1.1",
+    "containership.plugin": "^0.2.2",
     "express": "^4.10.6",
     "hbs": "^2.7.0",
     "lodash": "^2.4.1",
