@@ -12,6 +12,11 @@ export default () => (
   <div style={{ marginBottom: 20 }}>
     <Head>
       <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
+      <style>{`
+        body {
+          font-family: sans-serif;
+        }
+      `}</style>
     </Head>
 
     <Link href="/"><a className="link">Cluster Overview</a></Link>
