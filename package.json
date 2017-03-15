@@ -1,22 +1,16 @@
 {
   "name": "containership.plugin.navigator",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A web-ui for managing your ContainerShip cluster",
-  "main": "application.js",
+  "main": "index.js",
   "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ContainerShip Developers <developers@containership.io>",
   "license": "GPL-3.0",
-  "dependencies": {
-    "body-parser": "^1.10.0",
-    "containership.plugin": "^0.2.2",
-    "express": "^4.10.6",
-    "hbs": "^2.7.0",
-    "lodash": "^2.4.1",
-    "npm": "^2.7.4",
-    "request": "^2.54.0"
-  },
   "keywords": [
     "navigator",
     "containership",
@@ -31,5 +25,19 @@
   "bugs": {
     "url": "https://github.com/containership/containership.plugin.navigator/issues"
   },
-  "homepage": "https://github.com/containership/containership.plugin.navigator"
+  "homepage": "https://github.com/containership/containership.plugin.navigator",
+  "dependencies": {
+    "next": "2.0.0-beta.38",
+    "nprogress": "^0.2.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.17.1",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0"
+  }
 }
