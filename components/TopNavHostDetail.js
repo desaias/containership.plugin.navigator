@@ -23,6 +23,11 @@ const TopNavHostDetail = ({ hostId, isFollower, pathname }) => (
           </Link>
         </li>
       )}
+      <li>
+        <Link prefetch route="hostSettings" params={{ id: hostId }}>
+          <a className={pathname === '/hostSettings' || pathname === `/hosts/${hostId}/settings` ? 'link active' : 'link'}>Settings</a>
+        </Link>
+      </li>
     </ul>
     <style jsx>{`
       .top-nav {

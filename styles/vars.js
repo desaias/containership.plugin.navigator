@@ -1,9 +1,8 @@
 export default {
   // colors
   darkBlue: '#282f37',
-  // origBlue: '#4ac2e2',
-  // lightBlue: '#549EE4',
-  lightBlue: '#4ac2e2',
+  origBlue: '#4ac2e2',
+  lightBlue: '#549EE4',
   lightGrey: '#d9e9e1',
   green: '#00f4cb',
   yellow: '#f0c447',

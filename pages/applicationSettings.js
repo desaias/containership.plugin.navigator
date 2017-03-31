@@ -4,6 +4,7 @@ import 'isomorphic-fetch';
 import { Router } from '../routes';
 
 import Page from '../layouts/main';
+import ConfirmModal from '../components/ConfirmModal';
 import SectionHeader from '../components/SectionHeader';
 import ToggleBtn from '../components/ToggleBtn';
 import TopNav from '../components/TopNavAppDetail';
@@ -24,6 +25,9 @@ export default class ApplicationSettings extends PureComponent {
     super();
     this.toggleJsonMode = this.toggleJsonMode.bind(this);
     this.state = {
+      modalVisible: false,
+      modalConfirmText: 'DELETE',
+      modalInputText: '',
       itemsToDisplayInJSON: [
         'image',
         'command',
@@ -94,18 +98,22 @@ export default class ApplicationSettings extends PureComponent {
 
   deleteApplication() {
     const { application } = this.props;
-    return fetch(`http://198.199.69.61/v1/applications/${application.id}`, {
-      method: 'DELETE',
-    })
-    .then((res) => {
-      if (res.status >= 400) {
-        throw new Error('deleting error');
-      }
-      return res;
-    })
-    .then(() => {
-      Router.push('/applications');
-    });
+    if (this.state.modalConfirmText === this.state.modalInputText) {
+      this.setState({ modalInputText: '', modalVisible: false });
+      return fetch(`http://198.199.69.61/v1/applications/${application.id}`, {
+        method: 'DELETE',
+      })
+      .then((res) => {
+        if (res.status >= 400) {
+          throw new Error('deleting error');
+        }
+        return res;
+      })
+      .then(() => {
+        Router.push('/applications');
+      });
+    }
+    return false;
   }
 
   toggleJsonMode() {
@@ -366,9 +374,20 @@ export default class ApplicationSettings extends PureComponent {
         <div className="delete-btn-wrap">
           <button
             className="btn red"
-            onClick={() => this.deleteApplication()}
+            onClick={() => this.setState({ modalConfirmText: application.id, modalVisible: true })}
           >Delete Application</button>
         </div>
+
+        <ConfirmModal
+          changeInputFunc={e => this.setState({ modalInputText: e.target.value })}
+          closeModal={() => this.setState({ modalInputText: '', modalVisible: false })}
+          confirmBtnFunc={() => this.deleteApplication()}
+          deleteBtnText="Confirm Delete"
+          inputPlaceholder={this.state.modalConfirmText}
+          inputText={this.state.modalInputText}
+          isVisible={this.state.modalVisible}
+          title={`Delete ${application.id}`}
+        />
 
         <style jsx>{`
           .json-toggle {

@@ -32,9 +32,6 @@ export default class Applications extends PureComponent {
 
     return (
       <Page pathname={pathname}>
-        <div className="top-nav">
-          <Link prefetch route="addApplication"><a className="btn blue">Add Application</a></Link>
-        </div>
 
         {userApps.length > 0 && (
           <section className="application-wrapper">
@@ -60,6 +57,11 @@ export default class Applications extends PureComponent {
             </section>
           </section>
         )}
+
+        <div className="add-application">
+          <Link prefetch route="addApplication"><a className="btn blue">Add Application</a></Link>
+        </div>
+
         <section className="application-wrapper">
           <SectionHeader title="Core Applications" />
           <div className="list-header">
@@ -83,8 +85,11 @@ export default class Applications extends PureComponent {
         </section>
 
         <style jsx>{`
-          .top-nav {
-            margin-top: 2rem;
+          .add-application {
+            margin-top: 4rem;
+          }
+          .add-application .btn {
+            margin: 0;
           }
 
           .list-header {

@@ -15,6 +15,7 @@ routes.add('addApplication', '/add/application');
 routes.add('hosts', '/hosts');
 routes.add('hostsDetail', '/hosts/:id');
 routes.add('hostContainers', '/hosts/:id/containers');
+routes.add('hostSettings', '/hosts/:id/settings');
 routes.add('hostTags', '/hosts/:id/tags');
 
 module.exports = routes;
