@@ -96,12 +96,24 @@ export default class HostsDetail extends PureComponent {
           {host.mode === 'follower' && (
             <div>
               <div className="host-detail">
-                <p>CPUs</p>
+                <p>Total CPUs</p>
                 <p>{host.cpus}</p>
               </div>
               <div className="host-detail">
-                <p>Memory</p>
+                <p>Used CPUs</p>
+                <p>{host.containers.map(container => (container.status === 'loaded' ? container.cpus : 0)).reduce((sum, count) => (
+                  sum + count
+                ), 0)}</p>
+              </div>
+              <div className="host-detail">
+                <p>Total Memory</p>
                 <p>{`${(host.memory / 1024 / 1024).toFixed(0)} MB`}</p>
+              </div>
+              <div className="host-detail">
+                <p>Used Memory</p>
+                <p>{`${host.containers.map(container => (container.status === 'loaded' ? container.memory : 0)).reduce((sum, count) => (
+                  sum + count
+                ), 0)} MB`}</p>
               </div>
             </div>
           )}
