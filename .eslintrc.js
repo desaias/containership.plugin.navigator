@@ -27,6 +27,7 @@ module.exports = {
             "error",
             "unix"
         ],
+        "no-nested-ternary": 0,
         "quotes": [
             "error",
             "single"
@@ -35,8 +36,10 @@ module.exports = {
             "error",
             "always"
         ],
+        "react/forbid-prop-types": 0,
         "react/jsx-filename-extension": [
           2, { "extensions": [".js", ".jsx"] }
         ],
+        "react/require-default-props": 0,
     }
 };
