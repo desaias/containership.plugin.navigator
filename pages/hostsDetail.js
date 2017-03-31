@@ -103,7 +103,7 @@ export default class HostsDetail extends PureComponent {
                 <p>Used CPUs</p>
                 <p>{host.containers.map(container => (container.status === 'loaded' ? container.cpus : 0)).reduce((sum, count) => (
                   sum + count
-                ), 0)}</p>
+                ), 0).toFixed(2)}</p>
               </div>
               <div className="host-detail">
                 <p>Total Memory</p>
