@@ -10,7 +10,6 @@ routes.add('applicationContainers', '/applications/:id/containers');
 routes.add('applicationEnvVars', '/applications/:id/variables');
 routes.add('applicationSettings', '/applications/:id/settings');
 routes.add('applicationVolumes', '/applications/:id/volumes');
-routes.add('applicationTags', '/applications/:id/tags');
 routes.add('addApplication', '/add/application');
 routes.add('hosts', '/hosts');
 routes.add('hostsDetail', '/hosts/:id');

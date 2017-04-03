@@ -1,6 +1,8 @@
 import React, { PropTypes, PureComponent } from 'react';
 import 'isomorphic-fetch';
 
+import { API } from '../utils/config';
+
 import Page from '../layouts/main';
 
 import OverviewBox from '../components/OverviewBox';
@@ -10,7 +12,7 @@ import { formatMemory } from '../utils/helpers';
 
 export default class Overview extends PureComponent {
   static async getInitialProps({ pathname, req }) {
-    const res = await fetch('http://198.199.69.61/v1/cluster/state');
+    const res = await fetch(`${API}/cluster/state`);
     const json = await res.json();
     return {
       applications: Object.values(json.applications),

@@ -1,6 +1,8 @@
 import React, { PropTypes, PureComponent } from 'react';
 import 'isomorphic-fetch';
 
+import { API } from '../utils/config';
+
 import Page from '../layouts/main';
 import ContainerDetails from '../components/ContainerDetails';
 import NumberStepper from '../components/NumberStepper';
@@ -9,9 +11,9 @@ import TopNav from '../components/TopNavAppDetail';
 
 export default class ApplicationContainers extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
-    const res = await fetch(`http://198.199.69.61/v1/applications/${query.id}`);
+    const res = await fetch(`${API}/applications/${query.id}`);
     const json = await res.json();
-    const cs = await fetch('http://198.199.69.61/v1/cluster/state');
+    const cs = await fetch(`${API}/cluster/state`);
     const csJson = await cs.json();
     return {
       hosts: Object.values(csJson.hosts),
@@ -38,7 +40,7 @@ export default class ApplicationContainers extends PureComponent {
 
   deleteContainer(containerId) {
     const { application } = this.props;
-    fetch(`http://198.199.69.61/v1/applications/${application.id}/containers/${containerId}`, {
+    fetch(`${API}/applications/${application.id}/containers/${containerId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -52,7 +54,7 @@ export default class ApplicationContainers extends PureComponent {
     const method = diff > 0 ? 'POST' : 'DELETE';
     const count = diff > 0 ? diff : diff * -1;
 
-    fetch(`http://198.199.69.61/v1/applications/${application.id}/containers?count=${count}`, {
+    fetch(`${API}/applications/${application.id}/containers?count=${count}`, {
       method,
       headers: {
         'Content-Type': 'application/json',

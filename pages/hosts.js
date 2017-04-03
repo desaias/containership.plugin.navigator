@@ -1,13 +1,15 @@
 import React, { PropTypes, PureComponent } from 'react';
 import 'isomorphic-fetch';
 
+import { API } from '../utils/config';
+
 import Page from '../layouts/main';
 import HostLink from '../components/HostLink';
 import SectionHeader from '../components/SectionHeader';
 
 export default class Hosts extends PureComponent {
   static async getInitialProps({ pathname, req }) {
-    const res = await fetch('http://198.199.69.61/v1/hosts');
+    const res = await fetch(`${API}/hosts`);
     const hosts = await res.json();
     return {
       hosts,
@@ -19,6 +21,7 @@ export default class Hosts extends PureComponent {
     const { hosts, pathname } = this.props;
 
     const followers = Object.values(hosts).filter(host => host.mode === 'follower');
+
     // sort so controlling leader is always first
     const leaders = Object.values(hosts).filter(host => host.mode === 'leader').sort((a, b) => {
       if (a.praetor.leader && !b.praetor.leader) {

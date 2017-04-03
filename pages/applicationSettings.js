@@ -1,6 +1,7 @@
 import React, { PropTypes, PureComponent } from 'react';
 import 'isomorphic-fetch';
 
+import { API } from '../utils/config';
 import { Router } from '../routes';
 
 import Page from '../layouts/main';
@@ -13,7 +14,7 @@ import vars from '../styles/vars';
 
 export default class ApplicationSettings extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
-    const res = await fetch(`http://198.199.69.61/v1/applications/${query.id}`);
+    const res = await fetch(`${API}/applications/${query.id}`);
     const json = await res.json();
     return {
       application: { ...json },
@@ -100,7 +101,7 @@ export default class ApplicationSettings extends PureComponent {
     const { application } = this.props;
     if (this.state.modalConfirmText === this.state.modalInputText) {
       this.setState({ modalInputText: '', modalVisible: false });
-      return fetch(`http://198.199.69.61/v1/applications/${application.id}`, {
+      return fetch(`${API}/applications/${application.id}`, {
         method: 'DELETE',
       })
       .then((res) => {
@@ -181,7 +182,7 @@ export default class ApplicationSettings extends PureComponent {
   }
 
   updateApplication() {
-    fetch(`http://198.199.69.61/v1/applications/${this.state.payload.id}`, {
+    fetch(`${API}/applications/${this.state.payload.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

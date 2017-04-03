@@ -1,6 +1,7 @@
 import React, { PropTypes, PureComponent } from 'react';
 import 'isomorphic-fetch';
 
+import { API } from '../utils/config';
 import { Router } from '../routes';
 
 import Page from '../layouts/main';
@@ -10,7 +11,7 @@ import ConfirmModal from '../components/ConfirmModal';
 
 export default class HostsSettings extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
-    const res = await fetch(`http://198.199.69.61/v1/hosts/${query.id}`);
+    const res = await fetch(`${API}/hosts/${query.id}`);
     const json = await res.json();
     return {
       host: { ...json },
@@ -31,7 +32,7 @@ export default class HostsSettings extends PureComponent {
     const { host } = this.props;
     if (this.state.modalConfirmText === this.state.modalInputText) {
       this.setState({ modalInputText: '', modalVisible: false });
-      return fetch(`http://198.199.69.61/v1/hosts/${host.id}`, {
+      return fetch(`${API}/hosts/${host.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

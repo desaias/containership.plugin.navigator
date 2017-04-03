@@ -1,6 +1,8 @@
 import React, { PropTypes, PureComponent } from 'react';
 import 'isomorphic-fetch';
 
+import { API } from '../utils/config';
+
 import Page from '../layouts/main';
 import Checkbox from '../components/Checkbox';
 import SectionHeader from '../components/SectionHeader';
@@ -10,7 +12,7 @@ import VolumeListItemEdit from '../components/VolumeListItemEdit';
 
 export default class ApplicationVolumes extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
-    const res = await fetch(`http://198.199.69.61/v1/applications/${query.id}`);
+    const res = await fetch(`${API}/applications/${query.id}`);
     const json = await res.json();
     return {
       application: { ...json },
@@ -83,7 +85,7 @@ export default class ApplicationVolumes extends PureComponent {
   }
 
   sendPayload(appId, volumes) {
-    fetch(`http://198.199.69.61/v1/applications/${appId}`, {
+    fetch(`${API}/applications/${appId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

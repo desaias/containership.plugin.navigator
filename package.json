@@ -39,6 +39,7 @@
     "react-copy-to-clipboard": "^4.2.3",
     "react-dom": "^15.4.2",
     "styled-jsx": "^0.5.7",
+    "webpack": "^2.3.3",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {

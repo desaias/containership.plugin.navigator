@@ -1,6 +1,7 @@
 import React, { PropTypes, PureComponent } from 'react';
 import 'isomorphic-fetch';
 
+import { API } from '../utils/config';
 import { Link } from '../routes';
 
 import Page from '../layouts/main';
@@ -10,7 +11,7 @@ import SectionHeader from '../components/SectionHeader';
 
 export default class Applications extends PureComponent {
   static async getInitialProps({ pathname, req }) {
-    const res = await fetch('http://198.199.69.61/v1/applications');
+    const res = await fetch(`${API}/applications`);
     const json = await res.json();
     return {
       applications: Object.values(json),
