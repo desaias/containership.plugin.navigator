@@ -117,8 +117,8 @@ export default class Overview extends PureComponent {
           />
           <OverviewBox
             title="Total Memory"
-            count={formatMemory(memoryCount)}
-            meta={`${formatMemory(memoryUsed * 1024 * 1024)} Used`}
+            count={formatMemory(memoryCount / 1024 / 1024)}
+            meta={`${formatMemory(memoryUsed)} Used`}
           />
         </section>
 
