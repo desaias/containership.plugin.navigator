@@ -72,7 +72,10 @@ EnvironmentVariableListItem.propTypes = {
   deleteVar: PropTypes.func,
   editVar: PropTypes.func,
   envKey: PropTypes.string,
-  envValue: PropTypes.string,
+  envValue: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
 };
 
 export default EnvironmentVariableListItem;
