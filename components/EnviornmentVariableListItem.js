@@ -34,7 +34,11 @@ const EnvironmentVariableListItem = ({
       }
       p {
         font-size: 1.5rem;
-        width: 35rem;
+        width: 33rem;
+        margin-right: 2rem;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
       .edit {
         width: auto;
