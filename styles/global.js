@@ -4,10 +4,11 @@
 //
 import vars from './vars';
 
-export default `html, body, #__next, div[data-reactroot] {
+export default `
+html, body, #__next, div[data-reactroot] {
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: 100vh;
 }
 html {
   color: ${vars.fontDark};

@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import Checkbox from './Checkbox';
-// import vars from '../styles/vars';
 
 const VolumeListItemEdit = ({
   cancelFunc,

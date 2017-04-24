@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Button = ({ text }) => (
   <div>
@@ -43,7 +44,7 @@ const Button = ({ text }) => (
 );
 
 Button.propTypes = {
-  text: React.PropTypes.string.isRequried,
+  text: PropTypes.string.isRequried,
 };
 
 export default Button;

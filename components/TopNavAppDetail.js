@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Link } from '../routes';
 
@@ -113,8 +114,8 @@ const TopNavAppDetail = ({ appId, pathname }) => (
 );
 
 TopNavAppDetail.propTypes = {
-  appId: React.PropTypes.string.isRequired,
-  pathname: React.PropTypes.string.isRequired,
+  appId: PropTypes.string.isRequired,
+  pathname: PropTypes.string.isRequired,
 };
 
 export default TopNavAppDetail;

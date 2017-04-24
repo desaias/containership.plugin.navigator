@@ -1,4 +1,5 @@
-import React, { PropTypes, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import 'isomorphic-fetch';
 
 import { API } from '../utils/config';

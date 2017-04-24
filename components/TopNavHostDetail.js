@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Link } from '../routes';
 
 import vars from '../styles/vars';
@@ -64,9 +66,9 @@ const TopNavHostDetail = ({ hostId, isFollower, pathname }) => (
 );
 
 TopNavHostDetail.propTypes = {
-  hostId: React.PropTypes.string.isRequired,
-  isFollower: React.PropTypes.bool,
-  pathname: React.PropTypes.string.isRequired,
+  hostId: PropTypes.string.isRequired,
+  isFollower: PropTypes.bool,
+  pathname: PropTypes.string.isRequired,
 };
 
 export default TopNavHostDetail;

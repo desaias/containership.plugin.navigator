@@ -30,7 +30,7 @@ export default class MyDocument extends Document {
           <style type="text/css">{nprogress}</style>
         </Head>
         <body>
-          <Main />
+          <Main className="test" />
           <NextScript />
         </body>
       </html>
