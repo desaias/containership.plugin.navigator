@@ -38,7 +38,7 @@ const Sidebar = ({ pathname }) => {
       </Link>
 
       <footer>
-        <a href="https://docs.containership.io/docs" rel="noopener noreferrer" target="_blank" className="link">Documentation</a>
+        <a href="https://docs.containership.io/" rel="noopener noreferrer" target="_blank" className="link">Documentation</a>
       </footer>
       <style jsx>{`
         .sidebar {
