@@ -19,7 +19,7 @@ export default class ApplicationConstraints extends PureComponent {
       cs = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/cluster/state`);
     } else {
       res = await fetch(`http://127.0.0.1/v1/applications/${query.id}`);
-      cs = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/cluster/state`);
+      cs = await fetch(`http://127.0.0.1/v1/cluster/state`);
     }
     const json = await res.json();
     const csJson = await cs.json();
