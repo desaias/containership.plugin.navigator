@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { flatten, unflatten } from 'flat';
 import 'isomorphic-fetch';
 
-import { API } from '../utils/config';
-
 import Page from '../layouts/main';
 import NumberStepper from '../components/NumberStepper';
 import SectionHeader from '../components/SectionHeader';
@@ -14,9 +12,16 @@ import vars from '../styles/vars';
 
 export default class ApplicationConstraints extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
-    const res = await fetch(`${API}/applications/${query.id}`);
+    let res;
+    let cs;
+    if (process.browser) {
+      res = await fetch(`${window.location.origin}/v1/applications/${query.id}`);
+      cs = await fetch(`${window.location.origin}/v1/cluster/state`);
+    } else {
+      res = await fetch(`http://127.0.0.1/v1/applications/${query.id}`);
+      cs = await fetch(`${window.location.origin}/v1/cluster/state`);
+    }
     const json = await res.json();
-    const cs = await fetch(`${API}/cluster/state`);
     const csJson = await cs.json();
     return {
       application: { ...json },
@@ -186,7 +191,7 @@ export default class ApplicationConstraints extends PureComponent {
 
   pushNewConstraints(tags) {
     const { application } = this.props;
-    fetch(`${API}/applications/${application.id}`, {
+    fetch(`${window.location.origin}/v1/applications/${application.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -237,7 +242,7 @@ export default class ApplicationConstraints extends PureComponent {
       });
     }
 
-    fetch(`${API}/applications/${application.id}`, {
+    fetch(`${window.location.origin}/v1/applications/${application.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

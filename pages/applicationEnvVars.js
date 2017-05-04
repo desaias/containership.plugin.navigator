@@ -2,8 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import 'isomorphic-fetch';
 
-import { API } from '../utils/config';
-
 import Page from '../layouts/main';
 import SectionHeader from '../components/SectionHeader';
 import TopNav from '../components/TopNavAppDetail';
@@ -12,7 +10,12 @@ import EnvironmentVariableListItemEdit from '../components/EnviornmentVariableLi
 
 export default class ApplicationEnvVars extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
-    const res = await fetch(`${API}/applications/${query.id}`);
+    let res;
+    if (process.browser) {
+      res = await fetch(`${window.location.origin}/v1/applications/${query.id}`);
+    } else {
+      res = await fetch(`http://127.0.0.1/v1/applications/${query.id}`);
+    }
     const json = await res.json();
     return {
       application: { ...json },
@@ -60,7 +63,7 @@ export default class ApplicationEnvVars extends PureComponent {
   }
 
   sendPayload(appId, vars) {
-    fetch(`${API}/applications/${appId}`, {
+    fetch(`${window.location.origin}/v1/applications/${appId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

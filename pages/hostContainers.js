@@ -2,8 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import 'isomorphic-fetch';
 
-import { API } from '../utils/config';
-
 import Page from '../layouts/main';
 import ContainerDetails from '../components/ContainerDetails';
 import TopNav from '../components/TopNavHostDetail';
@@ -11,7 +9,12 @@ import SectionHeader from '../components/SectionHeader';
 
 export default class HostContainers extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
-    const res = await fetch(`${API}/hosts/${query.id}`);
+    let res;
+    if (process.browser) {
+      res = await fetch(`${window.location.origin}/v1/hosts/${query.id}`);
+    } else {
+      res = await fetch(`http://127.0.0.1/v1/hosts/${query.id}`);
+    }
     const json = await res.json();
     return {
       host: { ...json },
@@ -20,7 +23,7 @@ export default class HostContainers extends PureComponent {
   }
 
   static deleteContainer(applicationId, containerId) {
-    fetch(`${API}/applications/${applicationId}/containers/${containerId}`, {
+    fetch(`${window.location.origin}/v1/applications/${applicationId}/containers/${containerId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

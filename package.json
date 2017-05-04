@@ -2,11 +2,11 @@
   "name": "containership.plugin.navigator",
   "version": "0.3.0",
   "description": "A web-ui for managing your ContainerShip cluster",
-  "main": "index.js",
+  "main": "server-prod2.js",
   "scripts": {
     "dev": "node server-dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server-dev",
+    "start": "NODE_ENV=production node server-prod2",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ContainerShip Developers <developers@containership.io>",

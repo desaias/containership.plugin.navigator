@@ -4,15 +4,18 @@ import moment from 'moment';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import 'isomorphic-fetch';
 
-import { API } from '../utils/config';
-
 import Page from '../layouts/main';
 import SectionHeader from '../components/SectionHeader';
 import TopNav from '../components/TopNavHostDetail';
 
 export default class HostsDetail extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
-    const res = await fetch(`${API}/hosts/${query.id}`);
+    let res;
+    if (process.browser) {
+      res = await fetch(`${window.location.origin}/v1/hosts/${query.id}`);
+    } else {
+      res = await fetch(`http://127.0.0.1/v1/hosts/${query.id}`);
+    }
     const json = await res.json();
     return {
       host: { ...json },

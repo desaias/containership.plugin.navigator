@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import flat from 'flat';
 import 'isomorphic-fetch';
 
-import { API } from '../utils/config';
-
 import Page from '../layouts/main';
 import SectionHeader from '../components/SectionHeader';
 import TagListItem from '../components/TagListItem';
@@ -12,7 +10,12 @@ import TopNav from '../components/TopNavHostDetail';
 
 export default class HostTags extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
-    const res = await fetch(`${API}/hosts/${query.id}`);
+    let res;
+    if (process.browser) {
+      res = await fetch(`${window.location.origin}/v1/hosts/${query.id}`);
+    } else {
+      res = await fetch(`http://127.0.0.1/v1/hosts/${query.id}`);
+    }
     const json = await res.json();
     return {
       host: { ...json },
@@ -46,7 +49,7 @@ export default class HostTags extends PureComponent {
   }
 
   sendPayload(hostId, unflattenedTags) {
-    fetch(`${API}/hosts/${hostId}`, {
+    fetch(`${window.location.origin}/v1/hosts/${hostId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

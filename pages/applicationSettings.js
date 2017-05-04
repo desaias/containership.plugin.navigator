@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import 'isomorphic-fetch';
 
-import { API } from '../utils/config';
 import { Router } from '../routes';
 
 import Page from '../layouts/main';
@@ -15,7 +14,12 @@ import vars from '../styles/vars';
 
 export default class ApplicationSettings extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
-    const res = await fetch(`${API}/applications/${query.id}`);
+    let res;
+    if (process.browser) {
+      res = await fetch(`${window.location.origin}/v1/applications/${query.id}`);
+    } else {
+      res = await fetch(`http://127.0.0.1/v1/applications/${query.id}`);
+    }
     const json = await res.json();
     return {
       application: { ...json },
@@ -102,7 +106,7 @@ export default class ApplicationSettings extends PureComponent {
     const { application } = this.props;
     if (this.state.modalConfirmText === this.state.modalInputText) {
       this.setState({ modalInputText: '', modalVisible: false });
-      return fetch(`${API}/applications/${application.id}`, {
+      return fetch(`${window.location.origin}/v1/applications/${application.id}`, {
         method: 'DELETE',
       })
       .then((res) => {
@@ -183,7 +187,7 @@ export default class ApplicationSettings extends PureComponent {
   }
 
   updateApplication() {
-    fetch(`${API}/applications/${this.state.payload.id}`, {
+    fetch(`${window.location.origin}/v1/applications/${this.state.payload.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

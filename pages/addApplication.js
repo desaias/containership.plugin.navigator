@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import 'isomorphic-fetch';
 
-import { API } from '../utils/config';
 import { Router } from '../routes';
 
 import Page from '../layouts/main';
@@ -115,7 +114,7 @@ export default class AddApplication extends PureComponent {
   }
 
   createApplication() {
-    fetch(`${API}/applications/${this.state.payload.id}`, {
+    fetch(`${window.location.origin}/v1/applications/${this.state.payload.id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
