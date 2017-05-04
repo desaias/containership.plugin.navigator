@@ -13,7 +13,7 @@ export default class Overview extends PureComponent {
   static async getInitialProps({ pathname, req }) {
     let res;
     if (process.browser) {
-      res = await fetch(`${window.location.origin}/v1/cluster/state`);
+      res = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/cluster/state`);
     } else {
       res = await fetch('http://127.0.0.1/v1/cluster/state');
     }

@@ -13,11 +13,11 @@ export default class ApplicationContainers extends PureComponent {
     let res;
     let cs;
     if (process.browser) {
-      res = await fetch(`${window.location.origin}/v1/applications/${query.id}`);
-      cs = await fetch(`${window.location.origin}/v1/cluster/state`);
+      res = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications/${query.id}`);
+      cs = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/cluster/state`);
     } else {
       res = await fetch(`http://127.0.0.1/v1/applications/${query.id}`);
-      cs = await fetch(`${window.location.origin}/v1/cluster/state`);
+      cs = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/cluster/state`);
     }
     const json = await res.json();
     const csJson = await cs.json();
@@ -46,7 +46,7 @@ export default class ApplicationContainers extends PureComponent {
 
   deleteContainer(containerId) {
     const { application } = this.props;
-    fetch(`${window.location.origin}/v1/applications/${application.id}/containers/${containerId}`, {
+    fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications/${application.id}/containers/${containerId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ export default class ApplicationContainers extends PureComponent {
     const method = diff > 0 ? 'POST' : 'DELETE';
     const count = diff > 0 ? diff : diff * -1;
 
-    fetch(`${window.location.origin}/v1/applications/${application.id}/containers?count=${count}`, {
+    fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications/${application.id}/containers?count=${count}`, {
       method,
       headers: {
         'Content-Type': 'application/json',

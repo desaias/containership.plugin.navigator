@@ -15,11 +15,11 @@ export default class ApplicationConstraints extends PureComponent {
     let res;
     let cs;
     if (process.browser) {
-      res = await fetch(`${window.location.origin}/v1/applications/${query.id}`);
-      cs = await fetch(`${window.location.origin}/v1/cluster/state`);
+      res = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications/${query.id}`);
+      cs = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/cluster/state`);
     } else {
       res = await fetch(`http://127.0.0.1/v1/applications/${query.id}`);
-      cs = await fetch(`${window.location.origin}/v1/cluster/state`);
+      cs = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/cluster/state`);
     }
     const json = await res.json();
     const csJson = await cs.json();
@@ -191,7 +191,7 @@ export default class ApplicationConstraints extends PureComponent {
 
   pushNewConstraints(tags) {
     const { application } = this.props;
-    fetch(`${window.location.origin}/v1/applications/${application.id}`, {
+    fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications/${application.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -242,7 +242,7 @@ export default class ApplicationConstraints extends PureComponent {
       });
     }
 
-    fetch(`${window.location.origin}/v1/applications/${application.id}`, {
+    fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications/${application.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

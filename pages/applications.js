@@ -13,7 +13,7 @@ export default class Applications extends PureComponent {
   static async getInitialProps({ pathname, req }) {
     let res;
     if (process.browser) {
-      res = await fetch(`${window.location.origin}/v1/applications`);
+      res = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications`);
     } else {
       res = await fetch('http://127.0.0.1/v1/applications');
     }

@@ -16,7 +16,7 @@ export default class ApplicationSettings extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
     let res;
     if (process.browser) {
-      res = await fetch(`${window.location.origin}/v1/applications/${query.id}`);
+      res = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications/${query.id}`);
     } else {
       res = await fetch(`http://127.0.0.1/v1/applications/${query.id}`);
     }
@@ -106,7 +106,7 @@ export default class ApplicationSettings extends PureComponent {
     const { application } = this.props;
     if (this.state.modalConfirmText === this.state.modalInputText) {
       this.setState({ modalInputText: '', modalVisible: false });
-      return fetch(`${window.location.origin}/v1/applications/${application.id}`, {
+      return fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications/${application.id}`, {
         method: 'DELETE',
       })
       .then((res) => {
@@ -187,7 +187,7 @@ export default class ApplicationSettings extends PureComponent {
   }
 
   updateApplication() {
-    fetch(`${window.location.origin}/v1/applications/${this.state.payload.id}`, {
+    fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications/${this.state.payload.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

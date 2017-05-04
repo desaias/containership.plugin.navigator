@@ -11,7 +11,7 @@ export default class HostContainers extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
     let res;
     if (process.browser) {
-      res = await fetch(`${window.location.origin}/v1/hosts/${query.id}`);
+      res = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/hosts/${query.id}`);
     } else {
       res = await fetch(`http://127.0.0.1/v1/hosts/${query.id}`);
     }
@@ -23,7 +23,7 @@ export default class HostContainers extends PureComponent {
   }
 
   static deleteContainer(applicationId, containerId) {
-    fetch(`${window.location.origin}/v1/applications/${applicationId}/containers/${containerId}`, {
+    fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications/${applicationId}/containers/${containerId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

@@ -114,7 +114,7 @@ export default class AddApplication extends PureComponent {
   }
 
   createApplication() {
-    fetch(`${window.location.origin}/v1/applications/${this.state.payload.id}`, {
+    fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications/${this.state.payload.id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

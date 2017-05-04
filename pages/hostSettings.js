@@ -13,7 +13,7 @@ export default class HostsSettings extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
     let res;
     if (process.browser) {
-      res = await fetch(`${window.location.origin}/v1/hosts/${query.id}`);
+      res = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/hosts/${query.id}`);
     } else {
       res = await fetch(`http://127.0.0.1/v1/hosts/${query.id}`);
     }
@@ -37,7 +37,7 @@ export default class HostsSettings extends PureComponent {
     const { host } = this.props;
     if (this.state.modalConfirmText === this.state.modalInputText) {
       this.setState({ modalInputText: '', modalVisible: false });
-      return fetch(`${window.location.origin}/v1/hosts/${host.id}`, {
+      return fetch(`${window.location.protocol}//${window.location.hostname}/v1/hosts/${host.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

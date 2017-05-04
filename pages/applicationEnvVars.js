@@ -12,7 +12,7 @@ export default class ApplicationEnvVars extends PureComponent {
   static async getInitialProps({ pathname, req, query }) {
     let res;
     if (process.browser) {
-      res = await fetch(`${window.location.origin}/v1/applications/${query.id}`);
+      res = await fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications/${query.id}`);
     } else {
       res = await fetch(`http://127.0.0.1/v1/applications/${query.id}`);
     }
@@ -63,7 +63,7 @@ export default class ApplicationEnvVars extends PureComponent {
   }
 
   sendPayload(appId, vars) {
-    fetch(`${window.location.origin}/v1/applications/${appId}`, {
+    fetch(`${window.location.protocol}//${window.location.hostname}/v1/applications/${appId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

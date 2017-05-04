@@ -8,4 +8,4 @@ RUN yarn install
 COPY . /app
 RUN yarn build
 
-CMD ["node", "server-prod"]
+CMD ["yarn", "start"]
